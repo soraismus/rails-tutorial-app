@@ -9,7 +9,7 @@ group :development, :test do
   gem 'rspec-rails', '2.13.1'
   gem 'guard-rspec', '2.5.0'
 
-  gem 'spork-rails', github: 'sporkrb/spork-rails'
+  gem 'spork-rails', git: 'https://github.com/sporkrb/spork-rails.git'
   gem 'guard-spork', '1.5.0'
   gem 'childprocess', '0.3.6'
 end
