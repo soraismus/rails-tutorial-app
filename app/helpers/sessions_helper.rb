@@ -31,7 +31,7 @@ module SessionsHelper
 
   def redirect_back_or(default)
     target = session[:redirect_page] || default
-    direct_to(target)
+    redirect_to(target)
     session.delete(:redirect_page)
   end
 
