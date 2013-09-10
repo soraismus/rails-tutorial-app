@@ -29,4 +29,14 @@ module SessionsHelper
     cookies.delete(:remember_token)
   end
 
+  def redirect_back_or(default)
+    target = session[:redirect_page] || default
+    direct_to(target)
+    session.delete(:redirect_page)
+  end
+
+  def store_location
+    session[:redirect_page] = request.url if request.get?
+  end
+
 end
