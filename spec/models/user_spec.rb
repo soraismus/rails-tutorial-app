@@ -6,7 +6,7 @@ describe User do
       @user = User.new(name: "Example User", email: "user@example.com",
                        password: "foobar", password_confirmation: "foobar")
    end
-   
+
    subject { @user }
 
    it { should respond_to(:name) }
@@ -16,8 +16,19 @@ describe User do
    it { should respond_to :password_confirmation }
    it { should respond_to :remember_token }
    it { should respond_to :authenticate }
+   it { should respond_to :admin }
 
    it { should be_valid }
+   it { should_not be admin }
+
+   describe "with admin attribute set to 'true'" do
+     before(:each) do
+       @user.save!
+       @user.toggle!(:admin)
+     end
+
+     it { should be_admin }
+   end
 
    describe "when name is not present" do
       before { @user.name = " " }
@@ -68,7 +79,7 @@ describe User do
    describe "when password is not present" do
       before do
          @user = User.new(name: "Example User", email: "user@example.com",
-                          password: " ", password_confirmation: " ")      
+                          password: " ", password_confirmation: " ")
       end
       it { should_not be_valid }
    end
@@ -86,7 +97,7 @@ describe User do
    describe "return value of authenticate method" do
       before { @user.save }
       let(:found_user) { User.find_by(email: @user.email) }
-      
+
       describe "with valid password" do
          it { should eq found_user.authenticate(@user.password) }
       end
