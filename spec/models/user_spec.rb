@@ -122,7 +122,7 @@ describe User do
       FactoryGirl.create(:micropost, user: @user, created_at: 1.day.ago)
     end
     let!(:newer_micropost) do
-      FactoryGirld.create(:micropost, user: @user, created_at: 1.hour.ago)
+      FactoryGirl.create(:micropost, user: @user, created_at: 1.hour.ago)
     end
     it "should have the right microposts in the right order" do
       expect(@user.microposts.to_a).to eq [newer_micropost, older_micropost]
