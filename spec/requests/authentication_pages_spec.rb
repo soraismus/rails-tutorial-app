@@ -115,8 +115,8 @@ describe "Authentication" do
           specify { expect(response).to redirect_to(signin_path) }
         end
 
-        describe "submitting to the create action" do
-          before { delete relationships_path(1) }
+        describe "submitting to the destroy action" do
+          before { delete relationship_path(1) }
           specify { expect(response).to redirect_to(signin_path) }
         end
       end
