@@ -68,7 +68,7 @@ describe "User pages" do
 
       describe "follow/unfollow buttons" do
         let(:other_user) { FactoryGirl.create(:user) }
-        before { sign_in other_user }
+        before { sign_in user }
 
         describe "following a user" do
           before { visit user_path(other_user) }
