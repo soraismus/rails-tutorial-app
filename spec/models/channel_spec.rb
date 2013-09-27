@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-create_10_users = lambda do
-  10.times do |i|
+create_users = lambda do |num|
+  num.times do |i|
     input = {}
     input[:name] = "user#{i}"
     input[:email] = "a#{i}@example.com"
@@ -11,8 +11,8 @@ create_10_users = lambda do
   end
 end
 
-destroy_10_users = lambda do
-  10.times do |i|
+destroy_users = lambda do |num|
+  num.times do |i|
     User.find_by_name("user#{i}").destroy
   end
 end
@@ -34,14 +34,14 @@ describe Channel do
 
   describe "when 10 users are created and then deleted" do
     specify "10 channels should be created concurrently" do
-      expect { create_10_users.call }.to change(Channel, :count).by(10)
+      expect { create_users.call(10) }.to change(Channel, :count).by(10)
     end
   end
 
   describe "when 10 users are deleted" do
-    before { create_10_users.call }
+    before { create_users.call(10) }
     specify "at least 10 channels should be destroyed concurrently" do
-      expect { destroy_10_users.call }.to change(Channel, :count).by(-10)
+      expect { destroy_users.call(10) }.to change(Channel, :count).by(-10)
     end
   end
 
