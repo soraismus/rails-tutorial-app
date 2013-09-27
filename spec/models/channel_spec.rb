@@ -12,6 +12,6 @@ describe Channel do
 
   it { should respond_to :name }
   it { should respond_to :open }
-  it { should respont_to :user_id }
+  it { should respond_to :user_id }
   it { should respond_to :user }
 end
