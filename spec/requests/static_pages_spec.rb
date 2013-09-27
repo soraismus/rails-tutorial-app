@@ -59,4 +59,12 @@ describe "Static pages" do
     it { should have_content('Contact') }
     it { should have_title(full_title('Contact')) }
   end
+
+  describe "Chat page" do
+    before { visit chat_path }
+
+    it { should have_content('Chat') }
+    it { should have_title(full_title('Chat')) }
+  end
+
 end
