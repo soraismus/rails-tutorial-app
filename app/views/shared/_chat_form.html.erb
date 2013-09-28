@@ -1,0 +1,7 @@
+<%= form_for("chat", url: "/channels") do |f| %>
+
+  <div class="field">
+    <%= f.text_field :contact, placeholder: "Enter chat contact..." %>
+  </div>
+  <%= f.submit "Connect", class: "btn btn-xs btn-primary" %>
+<% end %>
