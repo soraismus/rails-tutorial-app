@@ -1,16 +1,18 @@
 <% provide(:title, 'Chat') %>
 <div class="row">
-  <div class="span8">
+  <aside class="span4">
     <section>
-      <h1>
-        <%= gravatar_for current_user %>
-        <%= current_user.name %>'s Chat Page
-      </h1>
+      <%= render 'shared/user_info' %>
     </section>
-
+    <section>
+      <%= render 'shared/chat_form' %>
+    </section>
+  </aside>
+  <div class="span8">
+    <h3>Chat Window</h3>
     <section>
       <% if current_user.channels.any? %>
-        <h3>Channels (<%= current_user.channels.count %>)</h3>
+        <h5>Channels (<%= current_user.channels.count %>)</h5>
         <ol class="channels">
 
         </ol>
