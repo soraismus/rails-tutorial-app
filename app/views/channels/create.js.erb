@@ -1,0 +1,7 @@
+(function (root) {
+  var new_channel = $("<div class='row'><%= @cu_channel.name %></div>");
+  $("ol.channels").append(new_channel);
+ // $("#chat-window h5")
+   // .html(javascript_safe("Channels (<%= current_user.channels.count %>)");
+  $("#chat-form")[0].reset();
+})(this);
