@@ -70,6 +70,15 @@ describe "Authentication" do
         end
       end
 
+# ---------------------
+
+      describe "in the Static_Pages Controller" do
+        before { get chat_path }
+        specify { expect(response).to redirect_to(root_url) }
+      end
+
+# ---------------------
+
       describe "in the Users controller" do
         describe "visiting the edit page" do
           before { visit edit_user_path(user) }
