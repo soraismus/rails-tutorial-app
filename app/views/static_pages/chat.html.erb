@@ -1,0 +1,20 @@
+<% provide(:title, 'Chat') %>
+<div class="row">
+  <div class="span8">
+    <section>
+      <h1>
+        <%= gravatar_for current_user %>
+        <%= current_user.name %>'s Chat Page
+      </h1>
+    </section>
+
+    <section>
+      <% if current_user.channels.any? %>
+        <h3>Channels (<%= current_user.channels.count %>)</h3>
+        <ol class="channels">
+
+        </ol>
+      <% end %>
+    </section>
+  </div>
+</div>
