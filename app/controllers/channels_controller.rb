@@ -5,9 +5,14 @@ class ChannelsController < ApplicationController
     cuid = current_user.id
     contact = User.find_by_name(params[:chat][:contact])
     channel_name = "cxn-#{cuid}-#{contact.id}"
-    @cu_channel = current_user.channels.build(name: channel_name).save!
-    @contact_channel = contact.channels.build(name: channel_name).save!
-    render "static_pages/chat"
+    @cu_channel = current_user.channels.build(name: channel_name)
+    @cu_channel.save!
+    @contact_channel = contact.channels.build(name: channel_name)
+    @contact_channel.save!
+    respond_to do |format|
+      format.html { render "static_pages/chat"}
+      format.js
+    end
   end
 
   def destroy
