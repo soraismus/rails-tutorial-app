@@ -14,7 +14,8 @@
       <% if current_user.channels.any? %>
         <h5>Channels (<%= current_user.channels.count %>)</h5>
         <ol class="channels">
-
+          <%= render partial: "channels/channel",
+            collection: current_user.channels %>
         </ol>
       <% end %>
     </section>
