@@ -7,7 +7,7 @@ class ChannelsController < ApplicationController
     channel_name = "cxn-#{cuid}-#{contact.id}"
     @cu_channel = current_user.channels.build(name: channel_name).save!
     @contact_channel = contact.channels.build(name: channel_name).save!
-    redirect_to "static_pages#chat"
+    render "static_pages/chat"
   end
 
   def destroy
