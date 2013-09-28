@@ -247,3 +247,10 @@ aside {
     margin-bottom: 5px;
   }
 }
+
+/* chat */
+
+#chat-window {
+  border: solid 1px $grayLighter;
+  @include box_sizing;
+}
