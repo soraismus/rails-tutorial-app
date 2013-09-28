@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130927220846) do
+ActiveRecord::Schema.define(version: 20130928040936) do
 
   create_table "channels", force: true do |t|
     t.string   "name"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20130927220846) do
   end
 
   add_index "channels", ["name", "user_id"], name: "index_channels_on_name_and_user_id", unique: true
-  add_index "channels", ["name"], name: "index_channels_on_name", unique: true
+  add_index "channels", ["name"], name: "index_channels_on_name"
   add_index "channels", ["user_id"], name: "index_channels_on_user_id"
 
   create_table "microposts", force: true do |t|
