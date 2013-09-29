@@ -1,0 +1,18 @@
+<script id="faye-infrastructure-cxn">
+  $(function () {
+    var channel = "/<%= current_user.channels.first.name %>"
+    var faye = new Faye.Client('http://localhost:9292/mount');
+
+    var subscribe = function (data) {
+      faye.subscribe(data, function (msg) {
+        alert(msg);
+      });
+    };
+
+    faye.subscribe(channel, function (data) {
+      alert(data);
+      subscribe(data);
+    });
+
+  });
+</script>
