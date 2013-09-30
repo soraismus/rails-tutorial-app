@@ -79,4 +79,6 @@ SampleApp4::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.force_ssl = true
+
+  config.faye_url = "http://powerful-waters-1612.herokuapp.com/mount"
 end

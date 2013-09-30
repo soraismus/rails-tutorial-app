@@ -35,4 +35,6 @@ SampleApp4::Application.configure do
   config.active_support.deprecation = :stderr
 
   ActiveModel::SecurePassword.min_cost = true
+
+  config.faye_url = "http://localhost:9292/mount"
 end
