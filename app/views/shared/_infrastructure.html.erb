@@ -22,7 +22,7 @@
       subscribe(data);
     });
 
-    $("#chat-btn").on('click', function (event) {
+    $("#message-form").submit(function (event) {
       event.preventDefault();
 
       var msg = $("#chat-msg").val();
