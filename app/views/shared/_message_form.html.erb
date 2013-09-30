@@ -1,8 +1,4 @@
-<%= form_for("chat",
-              url: "",
-              remote: true,
-              html: { id: "message-form" }) do |f| %>
-
+<%= form_for("chat", url: "", html: { id: "message-form" }) do |f| %>
   <div class="field">
     <%= f.text_field :message, placeholder: "Enter message...", id: "chat-msg" %>
   </div>
