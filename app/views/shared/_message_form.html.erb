@@ -1,6 +1,22 @@
-<%= form_for("chat", url: "", html: { id: "message-form" }) do |f| %>
-  <div class="field">
-    <%= f.text_field :message, placeholder: "Enter message...", id: "chat-msg" %>
+<form id="message-form" accept-charset="UTF-8">
+  <div style="margin:0;padding:0;display:inline">
+    <input
+      name="utf8"
+      type="hidden"
+      value="&#x2713;" />
+    <input
+      name="authenticity_token"
+      type="hidden"
+      value="<%= form_authenticity_token %>" />
   </div>
-  <%= f.submit "Send", class: "btn btn-xs btn-primary", id: "chat-btn" %>
-<% end %>
+  <div class="field">
+    <input
+      id="chat-msg"
+      type="text"
+      placeholder="Enter message..." />
+  </div>
+  <input
+    class="btn btn-xs btn-primary"
+    type="submit"
+    value="Send" />
+</form>
