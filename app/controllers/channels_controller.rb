@@ -8,7 +8,7 @@ class ChannelsController < ApplicationController
     @cu_channel = current_user.channels.build(name: channel_name)
     @cu_channel.save!
 
-    uri = URI.parse("http://localhost:9292/mount")
+    uri = URI.parse(Rails.application.config.faye_url)
     message = {
       channel: "/infrastructure-#{cuid}",
       data: channel_name
