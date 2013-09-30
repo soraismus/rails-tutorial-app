@@ -1,10 +1,10 @@
 <%= form_for("chat",
-              url: "/channels",
+              url: "",
               remote: true,
               html: { id: "message-form" }) do |f| %>
 
   <div class="field">
-    <%= f.text_field :message, placeholder: "Enter message..." %>
+    <%= f.text_field :message, placeholder: "Enter message...", id: "chat-msg" %>
   </div>
-  <%= f.submit "Send", class: "btn btn-xs btn-primary" %>
+  <%= f.submit "Send", class: "btn btn-xs btn-primary", id: "chat-btn" %>
 <% end %>
