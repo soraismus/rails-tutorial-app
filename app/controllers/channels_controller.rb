@@ -4,15 +4,18 @@ class ChannelsController < ApplicationController
   def create
     cuid = current_user.id
     contact = User.find_by_name(params[:chat][:contact])
-    channel_name = "cxn-#{cuid}-#{contact.id}"
+    channel_name = "/cxn-#{cuid}-#{contact.id}"
     @cu_channel = current_user.channels.build(name: channel_name)
     @cu_channel.save!
-    @contact_channel = contact.channels.build(name: channel_name)
-    @contact_channel.save!
-    respond_to do |format|
-      format.html { render "static_pages/chat"}
-      format.js
-    end
+
+    uri = URI.parse("http://localhost:9292/mount")
+    message = {
+      channel: "/infrastructure-#{cuid}",
+      data: channel_name
+    }
+    Net::HTTP.post_form(uri, :message => message.to_json)
+
+    render nothing: true
   end
 
   def destroy
