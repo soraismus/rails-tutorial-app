@@ -1,7 +1,7 @@
 <script id="faye-infrastructure-cxn">
   $(function () {
     var channel = "/<%= current_user.channels.first.name %>";
-    var faye = new Faye.Client('http://localhost:9292/mount');
+    var faye = new Faye.Client(Rails.application.config.faye_url);
 
     var chatChannel = "";
 
