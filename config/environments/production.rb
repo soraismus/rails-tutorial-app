@@ -78,7 +78,7 @@ SampleApp4::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  config.force_ssl = true
+#  config.force_ssl = true
 
   config.faye_url = "https://powerful-waters-1612.herokuapp.com/mount"
 end
