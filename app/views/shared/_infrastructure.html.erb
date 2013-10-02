@@ -1,8 +1,8 @@
 <script type="application/javascript" id="faye-infrastructure-cxn">
   $(function () {
     var channel = "/<%= current_user.channels.first.name %>";
+    Faye.Transport.WebSocket.isUsable = function($,_,c) { c(false) };
     var faye = new Faye.Client("<%= Rails.application.config.faye_url %>");
-    faye.disable('websocket');
 
     var chatChannel = "";
 
