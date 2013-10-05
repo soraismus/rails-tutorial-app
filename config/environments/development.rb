@@ -27,5 +27,5 @@ SampleApp4::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
-  config.faye_url = "http://localhost:9292/mount"
+  config.faye_url = "https://powerful-waters-1612.herokuapp.com/faye"
 end
