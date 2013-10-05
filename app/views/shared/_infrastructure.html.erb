@@ -24,7 +24,7 @@
     });
 
     $("#message-form").submit(function (event) {
-      event.preventDefault();
+      event.preventDefault ? event.preventDefault() : event.returnValue = false;
 
       var msg = $("#chat-msg").val();
       var msgObject = { text: msg };
