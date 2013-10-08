@@ -28,4 +28,5 @@ SampleApp4::Application.configure do
   config.assets.debug = true
 
   config.faye_url = "https://powerful-waters-1612.herokuapp.com/faye"
+#  config.faye_url = "http://localhost:9292/faye"
 end

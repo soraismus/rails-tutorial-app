@@ -1,38 +1,62 @@
 <script type="application/javascript" id="faye-infrastructure-cxn">
   $(function () {
-    var channel = "/<%= current_user.channels.first.name %>";
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
 
-    var faye = new Faye.Client("<%= Rails.application.config.faye_url %>");
-    faye.setHeader('Access-Control-Allow-Origin', '*');
-    faye.connect();
-    Faye.Transport.WebSocket.isUsable = function($,_,c) { c(false) };
+    var baseChannel = "/<%= current_user.channels.first.name %>";
+    var chatChannel = undefined;
 
-    var chatChannel = "";
+    var fayeUrl = "<%= Rails.application.config.faye_url %>"
+    var fayeClient = new Faye.Client(fayeUrl);
 
-    var append = function (msg) {
-      var new_msg = $("<li>" + msg + "</li>");
-      $("ul.messages").append(new_msg);
-      $("#message-form")[0].reset();
-    }
-
-    var subscribe = function (data) {
-      faye.subscribe(data, function (msg) {
-        append(msg["text"]);
-      });
+    var append = function (message) {
+      var newMsg = $("<li>" + message.text + "</li>");
+      $("ul.messages").append(newMsg);
+      //$("#message-form")[0].reset();
     };
 
-    faye.subscribe(channel, function (data) {
-      chatChannel = data;
-      subscribe(data);
-    });
+    var subscribe = function (channelName) {
+      chatChannel = channelName;
+      fayeClient.subscribe(chatChannel, append);
+    };
 
-    $("#message-form").submit(function (event) {
-      event.preventDefault ? event.preventDefault() : event.returnValue = false;
+//    var subConfig = {
+//        url: "/channels",
+//        type: "POST",
+//        contentType: "json"
+//        success: subscribe
+//    };
 
+    // Event Handlers
+
+    var handleInput1 = function (event) {
+      event.preventDefault();
+      if (chatChannel) {
+        fayeClient.unsubscribe(chatChannel);
+      }
+      //$.ajax(subConfig);
+      chatChannel = $("#chat_contact").val();
+      fayeClient.subscribe(chatChannel, append);
+      return false;
+    };
+
+    var handleInput2 = function (event) {
+      event.preventDefault();
       var msg = $("#chat-msg").val();
       var msgObject = { text: msg };
-      faye.publish(chatChannel, msgObject);
-    });
+      fayeClient.publish(chatChannel, msgObject);
+    };
 
+    // Initial Action
+    fayeClient.subscribe(baseChannel);
+
+    // Event Bindings
+
+    $("#chat-form").submit(handleInput1);
+
+    $("#message-form").submit(handleInput2);
   });
 </script>
