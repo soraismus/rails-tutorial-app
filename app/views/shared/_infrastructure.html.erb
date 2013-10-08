@@ -1,11 +1,5 @@
 <script type="application/javascript" id="faye-infrastructure-cxn">
   $(function () {
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
-
     var baseChannel = "/<%= current_user.channels.first.name %>";
     var chatChannel = undefined;
 
@@ -13,49 +7,49 @@
     var fayeClient = new Faye.Client(fayeUrl);
 
     var append = function (message) {
-      var newMsg = $("<li>" + message.text + "</li>");
-      $("ul.messages").append(newMsg);
-      //$("#message-form")[0].reset();
-    };
+      var newMessage = $("<li>" + message + "</li>");
+      $("ul.messages").append(newMessage);
+    }
 
-    var subscribe = function (channelName) {
-      chatChannel = channelName;
+    var subscribe = function (response) {
+      if (chatChannel) fayeClient.unsubscribe(chatChannel);
+      var cuid = response.cuid;
+      var contactId = response.contactId;
+      chatChannel = "/cxn-" + cuid + "-" + contactId
       fayeClient.subscribe(chatChannel, append);
+      fayeClient.publish(chatChannel, "hello");
     };
 
-//    var subConfig = {
-//        url: "/channels",
-//        type: "POST",
-//        contentType: "json"
-//        success: subscribe
-//    };
-
-    // Event Handlers
+    fayeClient.subscribe(baseChannel, function (channelName) {
+      alert("new contact");
+      fayeClient.subscribe(channelName, subscribe);
+    });
 
     var handleInput1 = function (event) {
       event.preventDefault();
-      if (chatChannel) {
-        fayeClient.unsubscribe(chatChannel);
-      }
-      //$.ajax(subConfig);
-      chatChannel = $("#chat_contact").val();
-      fayeClient.subscribe(chatChannel, append);
+      $.ajax({
+        url: "/channels",
+        type: "POST",
+        dataType: "json",
+        data: $(this).serialize(),
+        success: subscribe
+      });
+      $("#chat-msg").focus();
       return false;
     };
+
+    $("#chat-form").submit(handleInput1);
+    $("#chat_contact").focus(function () {
+      $("#chat-form")[0].reset();
+    });
 
     var handleInput2 = function (event) {
       event.preventDefault();
       var msg = $("#chat-msg").val();
-      var msgObject = { text: msg };
-      fayeClient.publish(chatChannel, msgObject);
+      $("#message-form")[0].reset();
+      fayeClient.publish(chatChannel, msg);
+      return false;
     };
-
-    // Initial Action
-    fayeClient.subscribe(baseChannel);
-
-    // Event Bindings
-
-    $("#chat-form").submit(handleInput1);
 
     $("#message-form").submit(handleInput2);
   });
