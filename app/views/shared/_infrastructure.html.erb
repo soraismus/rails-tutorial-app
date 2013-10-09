@@ -15,14 +15,15 @@
       if (chatChannel) fayeClient.unsubscribe(chatChannel);
       var cuid = response.cuid;
       var contactId = response.contactId;
+      var contactBaseChannel = "/infrastructure-" + contactId;
       chatChannel = "/cxn-" + cuid + "-" + contactId
       fayeClient.subscribe(chatChannel, append);
-      fayeClient.publish(chatChannel, "hello");
+      fayeClient.publish(contactBaseChannel, chatChannel);
     };
 
     fayeClient.subscribe(baseChannel, function (channelName) {
-      alert("new contact");
-      fayeClient.subscribe(channelName, subscribe);
+      alert("New Connection");
+      fayeClient.subscribe(channelName, append);
     });
 
     var handleInput1 = function (event) {
@@ -39,6 +40,7 @@
     };
 
     $("#chat-form").submit(handleInput1);
+
     $("#chat_contact").focus(function () {
       $("#chat-form")[0].reset();
     });
