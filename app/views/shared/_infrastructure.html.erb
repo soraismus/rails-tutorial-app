@@ -23,6 +23,7 @@
 
     fayeClient.subscribe(baseChannel, function (channelName) {
       alert("New Connection");
+      chatChannel = channelName;
       fayeClient.subscribe(channelName, append);
     });
 
